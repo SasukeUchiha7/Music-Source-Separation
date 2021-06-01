@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <h1>{% block title %}Web page for Audio Separation{% endblock %}</h1>
 <div class="container">
-  <div><span>Please select an audio</span></div>
+  <div><span>Please select an audio file</span></div>
   <div class="choose-input">
     <input type="file" id="fileupload" accept="audio/*" />
   </div>
@@ -9,8 +9,6 @@
     <span>Or choose from test samples.</span>
   </div>
   <div class="audio-control"><audio id="audio" controls></audio></div>
-  <div>
-
-  </div>
+  <div></div>
 </div>
 {% endblock %}
