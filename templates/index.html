@@ -1,14 +1,36 @@
-{% extends 'base.html' %} {% block content %}
-<h1>{% block title %}Web page for Audio Separation{% endblock %}</h1>
-<div class="container">
-  <div><span>Please select an audio file</span></div>
-  <div class="choose-input">
-    <input type="file" id="fileupload" accept="audio/*" />
-  </div>
-  <div>
-    <span>Or choose from test samples.</span>
-  </div>
+{% extends 'base.html'%} {% block content %}
+<h1>{% block title %}Audio Source Separation with openUnmix{% endblock %}</h1>
+<div><span>Please select an audio file</span></div>
+<div class="choose-input">
+  <input type="file" id="fileupload" accept="audio/*" />
+</div>
+<div>
+  <span>Or choose from test samples.</span><br />
+  <select>
+    <option>Sample 1</option>
+    <option>Sample 2</option>
+    <option>Sample 3</option>
+    <option>Sample 4</option>
+    <option>Sample 5</option>
+  </select>
+</div>
+<div class="predict-bar">
   <div class="audio-control"><audio id="audio" controls></audio></div>
-  <div></div>
+  <div>
+    <button class="sep-button">Separate</button>
+  </div>
+</div>
+<div class="output">
+  <div class="container">
+    <h3>Results</h3>
+    <p>Drums</p>
+    <br />
+    <p>Vocals</p>
+    <br />
+    <p>Bass</p>
+    <br />
+    <p>Other</p>
+    <br />
+  </div>
 </div>
 {% endblock %}
