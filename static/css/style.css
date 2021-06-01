@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
   margin: 0;
   padding: 0;
@@ -12,3 +13,19 @@ body {
   color: white;
   z-index: 100;
 }
+=======
+body {
+  margin: 0;
+  padding: 0;
+}
+.audio-control {
+  width: 50%;
+  margin: 50px auto;
+  display: block;
+}
+#fileupload {
+  top: 200px;
+  color: white;
+  z-index: 100;
+}
+>>>>>>> initial commit
