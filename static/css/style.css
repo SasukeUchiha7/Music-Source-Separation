@@ -1,14 +1,60 @@
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
-.audio-control {
-  width: 50%;
-  margin: 50px auto;
+.audio-control audio {
+  width: 100%;
   display: block;
 }
 #fileupload {
-  top: 200px;
-  color: white;
+  color: darkgrey;
   z-index: 100;
+}
+.container {
+  margin-top: 30px;
+}
+
+.sep-button {
+  background-color: #008cba; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 40;
+  border: 1px solid rounded;
+  border-radius: 10px;
+}
+
+div span {
+  font-size: large;
+}
+
+select,
+input {
+  display: block;
+  width: 65%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  padding: 10px 20px;
+}
+
+input {
+  padding: 0;
+}
+
+.predict-bar {
+  display: flex;
+  margin-top: 20px;
+}
+
+.predict-bar div {
+  flex: 1;
+}
+.predict-bar .sep-button {
+  margin-left: 20px;
 }
