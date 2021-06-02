@@ -8,36 +8,42 @@
 >
   <div class="choose-input">
     <input type="file" id="fileupload" accept="audio/*" name="file" />
-    <input type="submit" />
+    <input type="submit" value="Upload" />
   </div>
 </form>
-<div>
-  <span>Or choose from test samples.</span><br />
-  <select>
-    {% for song in songs %}
-    <option>{{song.label}}</option>
-    {% endfor %}
-  </select>
-</div>
-<div class="predict-bar">
-  <div class="audio-control">
-    <audio id="audio" controls>
-      <source src="{{ source }}" />
-    </audio>
-  </div>
+<form method="GET" , action="{{url_for('selected')}}">
   <div>
-    <button class="sep-button">Separate</button>
+    <span>Or choose from test samples.</span><br />
+    <select name="select-song" id="select-sng">
+      <option>Select Sample</option>
+      {% for song in songs %}
+      <option value="{{song}}">{{song}}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Select" />
   </div>
-</div>
+</form>
+<form method="POST" action="{{url_for('separateAudio')}}">
+  <div class="predict-bar">
+    <div class="audio-control">
+      <audio id="audio" controls>
+        <source src="{{ source }}" />
+      </audio>
+    </div>
+    <div>
+      <button class="sep-button" type="submit">Separate</button>
+    </div>
+  </div>
+</form>
 <div class="output">
   <div class="container">
     <h3>Results</h3>
     <ul>
       {% for audio in audios %}
       <li>
-        <p>{{audio.label}}</p>
-        <audio id="{{audio.label}}" controls>
-          <source src="{{audio.label}}.wav" type="audio/wav" />
+        <p>{{audio[14:]}}</p>
+        <audio id="{{audio[14:]}}" controls>
+          <source src="{{audio}}" type="audio/wav" />
         </audio>
       </li>
       {% endfor %}
