@@ -1,9 +1,14 @@
 {% extends 'base.html'%} {% block content %}
 <h1>{% block title %}Audio Source Separation with openUnmix{% endblock %}</h1>
 <div><span>Please select an audio file</span></div>
-<form action="{{ url_for('home')}}" method="POST">
+<form
+  action="{{ url_for('upload')}}"
+  method="POST"
+  enctype="multipart/form-data"
+>
   <div class="choose-input">
-    <input type="file" id="fileupload" accept="audio/*" />
+    <input type="file" id="fileupload" accept="audio/*" name="file" />
+    <input type="submit" />
   </div>
 </form>
 <div>
@@ -15,7 +20,11 @@
   </select>
 </div>
 <div class="predict-bar">
-  <div class="audio-control"><audio id="audio" controls></audio></div>
+  <div class="audio-control">
+    <audio id="audio" controls>
+      <source src="{{ source }}" />
+    </audio>
+  </div>
   <div>
     <button class="sep-button">Separate</button>
   </div>
