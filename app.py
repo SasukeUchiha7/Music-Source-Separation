@@ -94,7 +94,6 @@ def delete_all():
             continue
         else: os.remove(f)
 
-delete_all()
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(threaded=True,port=5000) 
