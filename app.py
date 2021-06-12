@@ -51,7 +51,7 @@ def upload():
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
+        if file :
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             # return redirect(url_for('download_file', name=filename))
@@ -65,7 +65,7 @@ def upload():
 @app.route('/select', methods=['GET', 'POST'])  ## route for sample select
 def selected():
     selectedSource = request.args.get('select-song')
-    print(selectedSource)
+    print("selected song:",selectedSource)
     src=os.path.join(app.config['SAMPLE_FOLDER'],selectedSource)
     global mainSource
     mainSource +=src
