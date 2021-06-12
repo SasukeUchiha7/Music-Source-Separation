@@ -47,6 +47,7 @@ def upload():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
+        print("uploaded file: ",file)
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
@@ -56,7 +57,8 @@ def upload():
             # return redirect(url_for('download_file', name=filename))
             source = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             global mainSource
-            mainSource=''+source
+            mainSource+=source
+            print("uploaded mainsrc:",mainSource)
             return render_template('index.html', source = source)
 
 
@@ -67,12 +69,13 @@ def selected():
     src=os.path.join(app.config['SAMPLE_FOLDER'],selectedSource)
     global mainSource
     mainSource +=src
+    print("selected mainsrc:",mainSource)
     return render_template('index.html', source = src)
 
 
 @app.route('/predict', methods=['POST','GET']) ## separate -------------------------
 def separateAudio():
-    print(mainSource)
+    print("separating mainsrc:",mainSource)
     separateMusic(mainSource)
     audios = os.listdir(app.config['OUTPUT_FOLDER'])
     output = []
