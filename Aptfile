@@ -1,1 +1,1 @@
-ffmpeg mediainfo sox
+ffmpeg mediainfo sox libsndfile1-dev
