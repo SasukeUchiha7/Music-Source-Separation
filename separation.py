@@ -2,20 +2,14 @@ import torch
 import torchaudio
 import numpy as np
 import scipy 
-# import stempeg
-import os
-import youtube_dl
-from scipy.io.wavfile import read, write
-import wave
-import soundfile as sf
-import audiofile as af
 from openunmix import predict
+import audiofile as af
 
 use_cuda = torch.cuda.is_available()
 device = torch.device("cuda" if use_cuda else "cpu")
 
 def separateMusic(source):
-    data, fs = sf.read(source, dtype='float32')
+    data,fs = af.read(source)
 
     estimates = predict.separate(
         torch.as_tensor(data).float(),
