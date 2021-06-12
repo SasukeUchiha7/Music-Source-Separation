@@ -2,6 +2,9 @@ import os
 from flask import Flask, render_template, url_for, request, flash, redirect, send_from_directory
 from werkzeug.utils import secure_filename
 from separation import separateMusic
+import glob
+
+base_dir = os.path.abspath(os.path.dirname(__file__))
 
 UPLOAD_FOLDER= "static/uploads"
 SAMPLE_FOLDER= "static/samples"
@@ -30,6 +33,7 @@ def allowed_file(filename):
 def home():
     global mainSource
     mainSource=''
+    delete_all()
     return render_template('index.html', songs=songs)
 
 @app.route('/uploads/<name>') ##uploaded_file uri---------------------------
@@ -52,7 +56,7 @@ def upload():
             # return redirect(url_for('download_file', name=filename))
             source = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             global mainSource
-            mainSource+=source
+            mainSource=''+source
             return render_template('index.html', source = source)
 
 
@@ -75,9 +79,22 @@ def separateAudio():
     for a in audios: output.append(app.config['OUTPUT_FOLDER']+'/'+a)
     return render_template('index.html', audios=output, source = mainSource)
 
+    
+
 @app.route('/about') ### about page---------------------------------
 def about():
     return render_template('about.html')
+
+def delete_all():
+    folder = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*.wav'))
+    print("folder:", folder)
+    test = 'test3.wav'
+    for f in folder:
+        if(f == os.path.join(app.config['UPLOAD_FOLDER'], test) ):
+            continue
+        else: os.remove(f)
+
+delete_all()
 
 if __name__ == '__main__':
     app.run(debug=True) 
