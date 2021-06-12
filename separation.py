@@ -10,9 +10,9 @@ device = torch.device("cuda" if use_cuda else "cpu")
 
 def separateMusic(source):
     data,fs = af.read(source)
-
+    track = np.copy(data)
     estimates = predict.separate(
-        torch.as_tensor(data).float(),
+        torch.as_tensor(track).float(),
         rate=fs,
         device=device
     )   

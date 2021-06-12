@@ -76,11 +76,15 @@ def selected():
 @app.route('/predict', methods=['POST','GET']) ## separate -------------------------
 def separateAudio():
     print("separating mainsrc:",mainSource)
-    separateMusic(mainSource)
-    audios = os.listdir(app.config['OUTPUT_FOLDER'])
-    output = []
-    for a in audios: output.append(app.config['OUTPUT_FOLDER']+'/'+a)
-    return render_template('index.html', audios=output, source = mainSource)
+    if(mainSource==''):
+        print("empty----------------------------------------------")
+        return "Empty File!!!!!"
+    else:
+        separateMusic(mainSource)
+        audios = os.listdir(app.config['OUTPUT_FOLDER'])
+        output = []
+        for a in audios: output.append(app.config['OUTPUT_FOLDER']+'/'+a)
+        return render_template('index.html', audios=output, source = mainSource)
 
     
 
