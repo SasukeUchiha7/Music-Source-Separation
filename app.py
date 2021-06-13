@@ -22,13 +22,11 @@ app.add_url_rule(
     "/uploads/<name>", endpoint="download_file", build_only=True
 )
 
-mainSource ='' ## sourcefilepath
-
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXT
 
-
+mainSource=''
 # routes -------------
 @app.route('/') ## home--------------------------------
 def home():
