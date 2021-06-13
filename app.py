@@ -12,6 +12,7 @@ OUTPUT_FOLDER= "static/sounds"
 ALLOWED_EXT = { 'wav', 'aac'}
 
 app = Flask(__name__)  
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SAMPLE_FOLDER'] = SAMPLE_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
@@ -44,32 +45,40 @@ def download_file(name):
 def upload(): 
     if request.method =="POST":
         if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+            flash('No file part','danger')
+            return render_template('index.html', songs=songs)
         file = request.files['file']
         print("uploaded file: ",file)
         if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
+            flash('No selected file','danger')
+            return render_template('index.html', songs=songs)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             # return redirect(url_for('download_file', name=filename))
             source = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             global mainSource
-            mainSource+=source
+            mainSource=''+source
             print("uploaded mainsrc:",mainSource)
+            flash("Loaded...",'info')
             return render_template('index.html', source = source)
+        else: 
+            flash("Wrong Format",'danger')
+            return render_template('index.html', songs=songs)
 
 
 @app.route('/select', methods=['GET', 'POST'])  ## route for sample select
 def selected():
     selectedSource = request.args.get('select-song')
+    if (selectedSource==None):
+        flash("Please select from the given samples or upload a wav file!",'warning')
+        return render_template('index.html', songs=songs)
     print("selected song:",selectedSource)
     src=os.path.join(app.config['SAMPLE_FOLDER'],selectedSource)
     global mainSource
-    mainSource +=src
+    mainSource =''+src
     print("selected mainsrc:",mainSource)
+    flash("Loaded...",'info')
     return render_template('index.html', source = src)
 
 
@@ -78,12 +87,14 @@ def separateAudio():
     print("separating mainsrc:",mainSource)
     if(mainSource==''):
         print("empty----------------------------------------------")
-        return "Empty File!!!!!"
+        flash("Empty File!!!!!",'danger')
+        return render_template('index.html', songs=songs)
     else:
         separateMusic(mainSource)
         audios = os.listdir(app.config['OUTPUT_FOLDER'])
         output = []
         for a in audios: output.append(app.config['OUTPUT_FOLDER']+'/'+a)
+        flash('Successfull!', 'success')
         return render_template('index.html', audios=output, source = mainSource)
 
     
