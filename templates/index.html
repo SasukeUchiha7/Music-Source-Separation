@@ -38,12 +38,16 @@
     </audio>
   </div>
   <div class="predict-buttons">
-    <a href="{{url_for('separateAudio')}}"
-      ><button class="btn btn-primary">Separate</button></a
-    >
-    <a href="{{ url_for('home') }}"
-      ><button class="btn btn-secondary">Refresh</button></a
-    >
+    <div>
+      <a href="{{ url_for('separateAudio') }}"
+        ><button class="btn btn-primary btn-block">Separate</button></a
+      >
+    </div>
+    <div>
+      <a href="{{ url_for('home') }}"
+        ><button class="btn btn-secondary btn-block">Refresh</button></a
+      >
+    </div>
   </div>
 </div>
 <div class="output">
