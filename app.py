@@ -41,12 +41,10 @@ def home():
 def download_file(name):
     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
-@app.route('/<src>')
-def loaded(src):
-    audiosrc = src
-    mainSource = audiosrc
-    print(src)
-    return render_template('index.html', source=src)
+@app.route('/loaded')
+def loaded():
+    print("got source: ",mainSource)
+    return render_template('index.html', source=mainSource)
 
 @app.route('/upload',methods = ["POST","GET"]) #### upload-------------------------------
 def upload(): 
@@ -68,7 +66,7 @@ def upload():
             mainSource=''+source
             print("uploaded mainsrc:",mainSource)
             flash("Loaded...",'info')
-            return redirect(url_for('loaded', src = source))
+            return redirect(url_for('loaded'))
         else: 
             flash("Wrong Format",'danger')
             return redirect(url_for('home'))
@@ -85,7 +83,7 @@ def selected():
     mainSource =''+src
     print("selected mainsrc:",mainSource)
     flash("Loaded...",'info')
-    return redirect(url_for('loaded', src = src))
+    return redirect(url_for('loaded'))
 
 
 @app.route('/process') ## separate -------------------------
