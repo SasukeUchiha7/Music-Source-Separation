@@ -19,4 +19,5 @@ def separateMusic(source):
     for target, estimate in estimates.items():
         print(target)
         audio = estimate.detach().cpu().numpy()[0]
-        af.write('static/sounds/'+target+'.wav',audio,fs)
+        name='static/sounds/'+target+'.wav'
+        af.write(name,audio,fs)
